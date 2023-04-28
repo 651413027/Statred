@@ -6,24 +6,22 @@ import {
   Typography,
   Container,
 } from '@mui/material'
-import Img from '../../../public/0620-28.webp'
 import { formatCurrency } from '@/utils/formatCurrency'
 import { useEffect, useState } from 'react'
-import { ProductData } from '@/models/products.model'
 import { fetchProducts } from '@/services/serverService'
 import { imageUrl } from '@/utils/common'
-
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+import { useAppDispatch } from '@/store/store'
+import { productSelector, setProducts } from '@/store/slices/productSlice'
+import { useSelector } from 'react-redux'
 
 const Orders = () => {
-  const [products, setProducts] = useState<ProductData[]>([])
-
+  const dispatch = useAppDispatch()
+  const products = useSelector(productSelector)
   useEffect(() => {
     fetchProducts()
-      .then((response) => setProducts(response.data))
+      .then((response) => dispatch(setProducts(response.data)))
       .catch((err) => console.log(err))
   }, [])
-
   return (
     <Container sx={{ py: 8 }} maxWidth='md'>
       {/* End hero unit */}

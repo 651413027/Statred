@@ -1,3 +1,4 @@
+import { Customer } from "@/models/customer.model";
 import { Product } from "@/models/products.model";
 import { SignIn } from "@/models/signin.model";
 import httpClient from "@/utils/httpClient";
@@ -17,3 +18,7 @@ export const fetchProducts = async (): Promise<Product> => {
   const { data: response } = await httpClient.get<Product>("/products");
   return response;
 };
+export const fetchCustomers = async (): Promise<Customer> => {
+    const { data: response } = await httpClient.get<Customer>("/customers");
+    return response;
+  };
